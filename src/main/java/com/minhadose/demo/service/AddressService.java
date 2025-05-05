@@ -76,8 +76,11 @@ public class AddressService {
         return addressRepository.save(newAddress);
     }
 
+    /* @Bruno-Guilherme - Erro a ser analisado.
     public AddressModel findByUbsId(Long ubsId) {
         return addressRepository.findByUbsModel_UbsId(ubsId)
                 .orElseThrow(() -> new EntityNotFoundException("Address for ubs not found"));
     }
+    */
+                
 }

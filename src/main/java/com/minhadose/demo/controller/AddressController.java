@@ -70,6 +70,7 @@ public class AddressController {
         }
     }
 
+    /* @Bruno - Erro a ser analisado
     @GetMapping("/ubs/{ubsId}")
     public ResponseEntity<AddressModel> getAddressByUbsId(@PathVariable Long ubsId) {
         try {
@@ -79,4 +80,5 @@ public class AddressController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    */
 }
