@@ -1,5 +1,6 @@
 package com.minhadose.demo.controller;
 
+import com.minhadose.demo.dto.AddressDto;
 import com.minhadose.demo.model.AddressModel;
 import com.minhadose.demo.service.AddressService;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,53 +19,64 @@ public class AddressController {
     AddressService addressService;
 
     @PostMapping
-    public ResponseEntity<AddressModel> createAddress(@RequestBody AddressModel address){
+    public ResponseEntity<AddressModel> createAddress(@RequestBody AddressDto addressDto) {
         try {
-            AddressModel newAddress = addressService.createAddress(address);
+            AddressModel newAddress = addressService.createAddress(addressDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(newAddress);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
-    @PutMapping
-    public ResponseEntity<AddressModel> updateAddress(@RequestParam Long addressId, @RequestBody AddressModel address){
-        try{
-            AddressModel updatedAddress = addressService.updateById(addressId, address);
+    @PutMapping("/{addressId}")
+    public ResponseEntity<AddressModel> updateAddress(@PathVariable Long addressId,
+            @RequestBody AddressDto addressDto) {
+        try {
+            AddressModel updatedAddress = addressService.updateById(addressId, addressDto);
             return ResponseEntity.status(HttpStatus.OK).body(updatedAddress);
-        }catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<AddressModel> getAddressById(@RequestParam Long addressId){
-        try{
-            AddressModel address = addressService.findById(addressId);
-            return ResponseEntity.status(HttpStatus.OK).body(null);
-        } catch (EntityNotFoundException e){
+    @GetMapping("/{addressId}")
+    public ResponseEntity<AddressModel> getAddressById(@PathVariable Long id) {
+        try {
+            AddressModel address = addressService.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(address);
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<AddressModel>> getAllAddresses(){
+    public ResponseEntity<List<AddressModel>> getAllAddresses() {
         List<AddressModel> addresses = addressService.listAllAddresses();
-        if(addresses.isEmpty()){
+        if (addresses.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return  ResponseEntity.status(HttpStatus.OK).body(addresses);
+        return ResponseEntity.status(HttpStatus.OK).body(addresses);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{addressId}")
     public ResponseEntity<Void> deleteAddress(@PathVariable Long id) {
         try {
             addressService.deleteById(id);
             return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @GetMapping("/ubs/{ubsId}")
+    public ResponseEntity<AddressModel> getAddressByUbsId(@PathVariable Long ubsId) {
+        try {
+            AddressModel address = addressService.findByUbsId(ubsId);
+            return ResponseEntity.ok(address);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }

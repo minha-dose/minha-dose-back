@@ -1,9 +1,11 @@
 package com.minhadose.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,5 +27,13 @@ public class AddressModel {
     private String country;
     private String zipCode;
     private String extraInfo;
+
+    @OneToOne(mappedBy = "address")
+	@JsonBackReference(value = "ubs-address")
+    private UbsModel ubsModel;
+
+    @OneToOne(mappedBy = "address")
+    @JsonBackReference(value = "user-address")
+    private UserModel userModel;
 
 }
