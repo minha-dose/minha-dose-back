@@ -1,6 +1,6 @@
 package com.minhadose.demo.dto;
 
-import javax.management.relation.Role;
+import com.minhadose.demo.model.Role;
 
 public record CreateUserDTO(
         String name,
