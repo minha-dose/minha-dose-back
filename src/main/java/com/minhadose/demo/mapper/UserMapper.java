@@ -9,7 +9,6 @@ import com.minhadose.demo.model.UserModel;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     @Mapping(target = "userId", ignore = true)
-    @Mapping(target = "address", ignore = true)
     UserModel toUserModel(CreateUserDTO dto);
     CreateUserDTO toCreateUserDTO(UserModel userModel);
 }

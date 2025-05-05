@@ -8,9 +8,14 @@ import com.minhadose.demo.dto.CreateUserDTO;
 import com.minhadose.demo.service.UserService;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -29,7 +34,6 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
-        // Construir URI do recurso criado
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(id)
@@ -37,6 +41,38 @@ public class UserController {
 
         return ResponseEntity.created(uri).build();
     }
-    
 
+    @GetMapping
+    public ResponseEntity<List<CreateUserDTO>> getAllUsers() {
+        List<CreateUserDTO> users = userService.getAllUsers();
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CreateUserDTO> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CreateUserDTO> updateUser(@PathVariable Long id, @RequestBody CreateUserDTO createUserDTO) {
+        CreateUserDTO updatedUser = userService.updateUser(id, createUserDTO);
+        if (updatedUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        boolean deleted = userService.deleteUser(id);
+        if (!deleted) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
+    }
 }

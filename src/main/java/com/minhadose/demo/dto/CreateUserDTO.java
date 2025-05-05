@@ -7,5 +7,6 @@ public record CreateUserDTO(
         String password,
         String email,
         Integer age,
-        Role role) {
+        Role role,
+        AddressDto address) {
 }
