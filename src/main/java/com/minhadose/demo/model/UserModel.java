@@ -9,16 +9,34 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserModel {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
+    private String name;
+    private String password;
+    private String email;
+    private Integer age;
+    private Role role;
+
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     @JsonManagedReference(value = "user-address")
     private AddressModel address;
+
+    // @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    // private VaccinCardModel vaccinCard;
+    // private List<ContactModel> contacts;
 }
