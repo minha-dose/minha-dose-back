@@ -18,20 +18,11 @@ public class ContactService {
     // Método para listar todos os contatos
     public List<ContactModel> getAllContacts() {
         return contactRepository.findAll();
-        }
-    
-        // Método para atualizar os campos de um contato existente
-        private void updateExistingContact(ContactModel existingContact, ContactModel newContact) {
-            existingContact.setName(newContact.getName());
-            existingContact.setEmail(newContact.getEmail());
-            existingContact.setPhone(newContact.getPhone());
-            // Adicione outros campos conforme necessário
-        }
     }
 
     // Método para buscar um contato por ID
     public Optional<ContactModel> getContactById(Long id) {
-        return Optional.ofNullable(contactRepository.findById(id).orElse(null));
+        return contactRepository.findById(id);
     }
 
     // Método para criar um novo contato
@@ -45,6 +36,13 @@ public class ContactService {
             updateExistingContact(existingContact, contact);
             return contactRepository.save(existingContact);
         }).orElseThrow(() -> new EntityNotFoundException("Contato não encontrado com o ID: " + id));
+    }
+
+    // Método auxiliar para atualização de dados
+    private void updateExistingContact(ContactModel existingContact, ContactModel newContact) {
+        existingContact.setNome(newContact.getNome());
+        existingContact.setEmail(newContact.getEmail());
+        existingContact.setPhone(newContact.getPhone());
     }
 
     // Método para deletar um contato por ID

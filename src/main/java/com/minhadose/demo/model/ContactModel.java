@@ -17,9 +17,9 @@ public class ContactModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String countryCode;
-    private String stateCode;
-    private String phoneNumber;
+    private String nome;
+    private String email;
+    private String phone;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
