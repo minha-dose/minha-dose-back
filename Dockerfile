@@ -10,4 +10,6 @@ RUN mvn clean package -DskipTests
 #
 FROM eclipse-temurin:17-jdk-alpine
 COPY --from=build /target/*.jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+
+# Ativa o perfil postgres ao iniciar a aplicação
+ENTRYPOINT ["java", "-Dspring.profiles.active=postgres", "-jar", "app.jar"]
