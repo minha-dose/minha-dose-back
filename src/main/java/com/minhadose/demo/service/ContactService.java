@@ -18,6 +18,15 @@ public class ContactService {
     // Método para listar todos os contatos
     public List<ContactModel> getAllContacts() {
         return contactRepository.findAll();
+        }
+    
+        // Método para atualizar os campos de um contato existente
+        private void updateExistingContact(ContactModel existingContact, ContactModel newContact) {
+            existingContact.setName(newContact.getName());
+            existingContact.setEmail(newContact.getEmail());
+            existingContact.setPhone(newContact.getPhone());
+            // Adicione outros campos conforme necessário
+        }
     }
 
     // Método para buscar um contato por ID

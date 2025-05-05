@@ -3,6 +3,7 @@ package com.minhadose.demo.repository;
 import com.minhadose.demo.model.ContactModel;
 import org.springframework.stereotype.Repository; 
 import java.util.List;
+import java.util.Optional;
 
 
 
@@ -14,7 +15,7 @@ public class ContactRepository {
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 
-    public Object findById(Long id) {
+    public Optional<ContactModel> findById(Long id) {
        
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
@@ -30,7 +31,7 @@ public class ContactRepository {
     }
 
     public boolean existsById(Long id) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'existsById'");
     }
     

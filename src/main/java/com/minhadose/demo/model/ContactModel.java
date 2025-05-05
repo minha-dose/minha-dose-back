@@ -15,7 +15,7 @@ public class ContactModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long contactId;
+    private Long id;
 
     private String countryCode;
     private String stateCode;
