@@ -28,11 +28,11 @@ public class AddressModel {
     private String zipCode;
     private String extraInfo;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", optional = true)
 	@JsonBackReference(value = "ubs-address")
     private UbsModel ubsModel;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", optional = true)
     @JsonBackReference(value = "user-address")
     private UserModel userModel;
 
