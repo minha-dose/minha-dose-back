@@ -73,4 +73,11 @@ public class UbsController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @GetMapping("/search")
+    public ResponseEntity<List<UbsModel>> getUbsByName(@RequestParam String name) {
+    List<UbsModel> result = ubsService.findByName(name);
+    return result.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+                            : ResponseEntity.ok(result);
+    }      
+
 }
