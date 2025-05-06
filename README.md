@@ -20,3 +20,5 @@ Esta aplicação possui uma documentação interativa via Swagger.
 
 ---
 🚀 **Dica:** Se sua aplicação usa um **caminho base customizado**, ajuste a URL conforme necessário!
+
+Tessssteeee
