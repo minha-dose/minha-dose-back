@@ -41,4 +41,8 @@ public class UbsService {
             throw new EntityNotFoundException("UBS not found with id: " + id);
         }
     }
+    public List<UbsModel> findByName(String name) {
+        return ubsRepository.findByNameContainingIgnoreCase(name);
+    }
+    
 }
