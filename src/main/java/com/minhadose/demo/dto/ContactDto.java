@@ -1,5 +1,3 @@
 package com.minhadose.demo.dto;
 
-public class ContactDto {
-    
-}
+public record ContactDto(String email, String phone) {}
