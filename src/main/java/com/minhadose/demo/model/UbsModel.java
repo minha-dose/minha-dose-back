@@ -27,10 +27,6 @@ public class UbsModel {
     private String name;
     
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_id")
-    private ContactModel contact;
-    
-    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     @JsonManagedReference(value = "ubs-address")
     private AddressModel address;
