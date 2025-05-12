@@ -1,10 +1,12 @@
 package com.minhadose.demo.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.minhadose.demo.dto.CreateUserDTO;
+import com.minhadose.demo.model.UserModel;
 import com.minhadose.demo.service.UserService;
 
 import java.net.URI;
@@ -74,5 +76,28 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
+    }
+
+     @GetMapping("/email")
+    public ResponseEntity<UserModel> getUserByEmail(@RequestParam String email) {
+
+           return userService.getUserByEmail(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/email/exists")
+    public ResponseEntity<Boolean> checkEmailExists(@RequestParam String email) {
+        return ResponseEntity.ok(userService.emailExists(email));
+    }
+
+    @GetMapping("/city/{city}")
+    public ResponseEntity<List<UserModel>> getUsersByCity(@PathVariable String city) {
+        return ResponseEntity.ok(userService.getUsersByCity(city));
+    }
+
+    @GetMapping("/cep/{cep}")
+    public ResponseEntity<List<UserModel>> getUsersByCep(@PathVariable String cep) {
+        return ResponseEntity.ok(userService.getUsersByCep(cep));
     }
 }

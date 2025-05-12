@@ -70,4 +70,20 @@ public class UserService {
         }
         return false;
     }
+
+    public Optional<UserModel> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public boolean emailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public List<UserModel> getUsersByCity(String city) {
+        return userRepository.findByAddress_City(city);
+    }
+
+    public List<UserModel> getUsersByCep(String cep) {
+        return userRepository.findByAddress_ZipCode(cep);
+    }
 }
