@@ -97,6 +97,6 @@ public class VaccinService {
             throw new RuntimeException("UBS não encontrada com ID: " + ubsId);
             // return Collections.emptyList(); 
         }
-        return vaccinRepository.findByUbsId(ubsId);
+        return vaccinRepository.findByUbsUbsId(ubsId);
     }
 }

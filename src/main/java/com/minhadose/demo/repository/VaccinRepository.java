@@ -22,5 +22,5 @@ public interface VaccinRepository extends JpaRepository<VaccinModel, Long> {
      * @param ubsId O ID da UBS.
      * @return Uma lista de VaccinModel associadas à UBS com o ID fornecido.
      */
-    List<VaccinModel> findByUbsId(Long ubsId);
+    List<VaccinModel> findByUbsUbsId(Long ubsId);
 }
