@@ -1,6 +1,5 @@
 package com.minhadose.demo.controller;
 
-import com.minhadose.demo.dto.AddressDto;
 import com.minhadose.demo.model.AddressModel;
 import com.minhadose.demo.service.AddressService;
 import jakarta.persistence.EntityNotFoundException;
