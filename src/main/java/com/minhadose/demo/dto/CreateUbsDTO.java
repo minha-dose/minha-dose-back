@@ -1,7 +1,14 @@
 package com.minhadose.demo.dto;
 
-public record CreateUbsDTO(
-        String name,
-        ContactDto contact,
-        AddressDto address
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateUbsDTO {
+    private String name;
+    private ContactDto contact;
+    private AddressDto address;
+}

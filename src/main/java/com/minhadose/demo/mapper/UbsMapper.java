@@ -8,7 +8,6 @@ import com.minhadose.demo.model.UbsModel;
 
 @Mapper(componentModel = "spring")
 public interface UbsMapper {
-    
     @Mapping(target = "ubsId", ignore = true)
     UbsModel toUbsModel(CreateUbsDTO dto);
     CreateUbsDTO toCreateUbsDTO(UbsModel ubsModel);

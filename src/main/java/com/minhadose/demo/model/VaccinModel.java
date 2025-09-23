@@ -1,87 +1,57 @@
 package com.minhadose.demo.model;
 
-import jakarta.persistence.*;
+import java.time.LocalDate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import lombok.Getter; 
+import lombok.Setter; 
+import lombok.NoArgsConstructor; 
+import lombok.AllArgsConstructor; 
 
 @Entity
+@Getter 
+@Setter 
+@NoArgsConstructor
+@AllArgsConstructor
 public class VaccinModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long vaccinId;
+    private Long id;
 
+    @NotBlank(message = "O nome não pode estar em branco")
     private String name;
+
+    @NotBlank(message = "O fabricante não pode estar em branco")
     private String manufacturer;
+
+    @NotBlank(message = "O lote não pode estar em branco")
     private String batch;
-    private String expiration;
-    private int originalQuantity;
-    private int currentQuantity;
 
-    public VaccinModel() {}
+    @NotNull(message = "A data de validade não pode ser nula")
+    @FutureOrPresent(message = "A data de validade deve ser no presente ou futuro")
+    private LocalDate expiration;
 
-    public VaccinModel(Long vaccinId, String name, String manufacturer, String batch, String expiration,
-                       int originalQuantity, int currentQuantity) {
-        this.vaccinId = vaccinId;
-        this.name = name;
-        this.manufacturer = manufacturer;
-        this.batch = batch;
-        this.expiration = expiration;
-        this.originalQuantity = originalQuantity;
-        this.currentQuantity = currentQuantity;
-    }
+    @NotNull(message = "A quantidade original não pode ser nula")
+    @PositiveOrZero(message = "A quantidade original deve ser positiva ou zero")
+    private Integer originalQuantity;
 
-    public Long getVaccinId() {
-        return vaccinId;
-    }
+    @NotNull(message = "A quantidade atual não pode ser nula")
+    @PositiveOrZero(message = "A quantidade atual deve ser positiva ou zero")
+    private Integer currentQuantity;
 
-    public void setVaccinId(Long vaccinId) {
-        this.vaccinId = vaccinId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "ubs_id", nullable = false)
+    @NotNull(message = "A UBS não pode ser nula")
+    private UbsModel ubs;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public String getBatch() {
-        return batch;
-    }
-
-    public void setBatch(String batch) {
-        this.batch = batch;
-    }
-
-    public String getExpiration() {
-        return expiration;
-    }
-
-    public void setExpiration(String expiration) {
-        this.expiration = expiration;
-    }
-
-    public int getOriginalQuantity() {
-        return originalQuantity;
-    }
-
-    public void setOriginalQuantity(int originalQuantity) {
-        this.originalQuantity = originalQuantity;
-    }
-
-    public int getCurrentQuantity() {
-        return currentQuantity;
-    }
-
-    public void setCurrentQuantity(int currentQuantity) {
-        this.currentQuantity = currentQuantity;
-    }
 }

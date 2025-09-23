@@ -1,8 +1,6 @@
 package com.minhadose.demo.service;
 
-import com.minhadose.demo.dto.AddressDto;
 import com.minhadose.demo.model.AddressModel;
-import com.minhadose.demo.model.UbsModel;
 import com.minhadose.demo.repository.AddressRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
