@@ -3,6 +3,12 @@ package com.minhadose.demo.controller;
 import com.minhadose.demo.model.AddressModel;
 import com.minhadose.demo.service.AddressService;
 import jakarta.persistence.EntityNotFoundException;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +18,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/address")
+
+@Tag(name = "Endereços", description = "Operações relacionadas a endereços")
 public class AddressController {
 
     @Autowired
     AddressService addressService;
 
+
+    @Operation(summary = "Buscar endereço por ID", description = "Retorna um endereço pelo seu ID.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Endereço encontrado"),
+        @ApiResponse(responseCode = "404", description = "Endereço não encontrado")
+    })
     @GetMapping("/{addressId}")
-    public ResponseEntity<AddressModel> getAddressById(@PathVariable Long addressId) {
+    public ResponseEntity<AddressModel> getAddressById(
+            @Parameter(description = "ID do endereço", example = "1")
+            @PathVariable Long addressId) {
         try {
             AddressModel address = addressService.findById(addressId);
             return ResponseEntity.status(HttpStatus.OK).body(address);
@@ -27,6 +43,12 @@ public class AddressController {
         }
     }
 
+
+    @Operation(summary = "Listar todos os endereços", description = "Retorna uma lista de todos os endereços cadastrados.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de endereços retornada com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Nenhum endereço encontrado")
+    })
     @GetMapping
     public ResponseEntity<List<AddressModel>> getAllAddresses() {
         List<AddressModel> addresses = addressService.listAllAddresses();
@@ -36,8 +58,16 @@ public class AddressController {
         return ResponseEntity.status(HttpStatus.OK).body(addresses);
     }
 
+
+    @Operation(summary = "Buscar endereço por ID do usuário", description = "Retorna o endereço associado a um usuário específico.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Endereço encontrado"),
+        @ApiResponse(responseCode = "404", description = "Endereço não encontrado para o usuário informado")
+    })
     @GetMapping("/user/{userId}")
-    public ResponseEntity<AddressModel> findByAddressByUserIId(@PathVariable Long userId) {
+    public ResponseEntity<AddressModel> findByAddressByUserIId(
+            @Parameter(description = "ID do usuário", example = "1")
+            @PathVariable Long userId) {
         try {
             AddressModel address = addressService.findByAddressByUserIId(userId);
             return ResponseEntity.ok(address);
@@ -46,8 +76,16 @@ public class AddressController {
         }
     }
 
+
+    @Operation(summary = "Buscar endereço por ID da UBS", description = "Retorna o endereço associado a uma UBS específica.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Endereço encontrado"),
+        @ApiResponse(responseCode = "404", description = "Endereço não encontrado para a UBS informada")
+    })
     @GetMapping("/ubs/{ubsId}")
-    public ResponseEntity<AddressModel> findByAddressByUbsIId(@PathVariable Long ubsId) {
+    public ResponseEntity<AddressModel> findByAddressByUbsIId(
+            @Parameter(description = "ID da UBS", example = "1")
+            @PathVariable Long ubsId) {
         try {
             AddressModel address = addressService.findByAddressByUbsIId(ubsId);
             return ResponseEntity.ok(address);

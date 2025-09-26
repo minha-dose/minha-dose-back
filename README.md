@@ -11,7 +11,7 @@ Esta aplicação possui uma documentação interativa via Swagger.
   Abra no navegador: [`http://localhost:8080/swagger-ui/index.html`](http://localhost:8080/swagger-ui/index.html)
 
 - **Ambiente de produção:**  
-  Acesse [`https://SEU-DOMINIO/swagger-ui/index.html`](https://SEU-DOMINIO/swagger-ui/index.html)
+  Acesse [`https://minha-dose-back-s6ae.onrender.com/swagger-ui/index.html`](https://minha-dose-back-s6ae.onrender.com/swagger-ui/index.html)
 
 ## ✨ O que você pode fazer no Swagger?
 ✅ Explorar e testar endpoints da API  
