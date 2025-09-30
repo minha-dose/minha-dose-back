@@ -11,7 +11,7 @@ public interface AddressMapper {
     @Mapping(target = "addressId", ignore = true)
     @Mapping(target = "ubsModel", ignore = true)
     @Mapping(target = "userModel", ignore = true)
-    AddressModel toDomain(AddressDto dto);
+    AddressModel toModel(AddressDto dto);
     AddressDto toDTO(AddressModel model);
 
 }

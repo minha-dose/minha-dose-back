@@ -58,10 +58,10 @@ public class UbsController {
         @ApiResponse(responseCode = "404", description = "UBS não encontrada"),
         @ApiResponse(responseCode = "500", description = "Erro interno ao atualizar UBS")
     })
-    @PutMapping
+    @PutMapping("/{ubsId}")
     public ResponseEntity<UbsModel> updateUbs(
         @Parameter(description = "ID da UBS", example = "1")
-        @RequestParam Long ubsId,
+        @PathVariable("ubsId") Long ubsId,
         @RequestBody(description = "Dados atualizados da UBS")
         @org.springframework.web.bind.annotation.RequestBody UbsModel ubs) {
         try {
@@ -82,8 +82,8 @@ public class UbsController {
     })
     @GetMapping({"/{id}"})
     public ResponseEntity<UbsModel> getUbsById(
-            @Parameter(description = "ID da UBS", example = "1")
-            @PathVariable Long id) {
+        @Parameter(description = "ID da UBS", example = "1")
+        @PathVariable("id") Long id) {
         try {
             UbsModel ubs = this.ubsService.findById(id);
             return ResponseEntity.status(HttpStatus.OK).body(ubs);
@@ -112,8 +112,8 @@ public class UbsController {
     })
     @DeleteMapping({"/{id}"})
     public ResponseEntity<Void> deleteUbs(
-            @Parameter(description = "ID da UBS", example = "1")
-            @PathVariable Long id) {
+        @Parameter(description = "ID da UBS", example = "1")
+        @PathVariable("id") Long id) {
         try {
             this.ubsService.deleteById(id);
             return ResponseEntity.noContent().build();

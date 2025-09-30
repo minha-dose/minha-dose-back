@@ -52,8 +52,8 @@ public class AppointmentController {
     })
     @GetMapping("/{id}")
     public AppointmentModel getById(
-            @Parameter(description = "ID do agendamento", example = "1")
-            @PathVariable Long id) {
+        @Parameter(description = "ID do agendamento", example = "1")
+        @PathVariable("id") Long id) {
         return appointmentService.getById(id);
     }
 
@@ -65,10 +65,10 @@ public class AppointmentController {
     })
     @PutMapping("/{id}")
     public AppointmentModel update(
-            @Parameter(description = "ID do agendamento", example = "1")
-            @PathVariable Long id,
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Dados atualizados do agendamento")
-            @RequestBody AppointmentModel updated) {
+        @Parameter(description = "ID do agendamento", example = "1")
+        @PathVariable("id") Long id,
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Dados atualizados do agendamento")
+        @RequestBody AppointmentModel updated) {
         return appointmentService.update(id, updated);
     }
 
@@ -80,8 +80,8 @@ public class AppointmentController {
     })
     @DeleteMapping("/{id}")
     public void delete(
-            @Parameter(description = "ID do agendamento", example = "1")
-            @PathVariable Long id) {
+        @Parameter(description = "ID do agendamento", example = "1")
+        @PathVariable("id") Long id) {
         appointmentService.delete(id);
     }
 }
