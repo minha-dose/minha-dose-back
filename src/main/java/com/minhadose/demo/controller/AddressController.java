@@ -33,8 +33,8 @@ public class AddressController {
     })
     @GetMapping("/{addressId}")
     public ResponseEntity<AddressModel> getAddressById(
-            @Parameter(description = "ID do endereço", example = "1")
-            @PathVariable Long addressId) {
+        @Parameter(description = "ID do endereço", example = "1")
+        @PathVariable("addressId") Long addressId) {
         try {
             AddressModel address = addressService.findById(addressId);
             return ResponseEntity.status(HttpStatus.OK).body(address);
@@ -66,8 +66,8 @@ public class AddressController {
     })
     @GetMapping("/user/{userId}")
     public ResponseEntity<AddressModel> findByAddressByUserIId(
-            @Parameter(description = "ID do usuário", example = "1")
-            @PathVariable Long userId) {
+        @Parameter(description = "ID do usuário", example = "1")
+        @PathVariable("userId") Long userId) {
         try {
             AddressModel address = addressService.findByAddressByUserIId(userId);
             return ResponseEntity.ok(address);
@@ -84,8 +84,8 @@ public class AddressController {
     })
     @GetMapping("/ubs/{ubsId}")
     public ResponseEntity<AddressModel> findByAddressByUbsIId(
-            @Parameter(description = "ID da UBS", example = "1")
-            @PathVariable Long ubsId) {
+        @Parameter(description = "ID da UBS", example = "1")
+        @PathVariable("ubsId") Long ubsId) {
         try {
             AddressModel address = addressService.findByAddressByUbsIId(ubsId);
             return ResponseEntity.ok(address);

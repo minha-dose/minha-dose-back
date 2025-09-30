@@ -42,7 +42,7 @@ public class UserController {
         @ApiResponse(responseCode = "400", description = "Dados inválidos para criação do usuário")
     })
     @PostMapping
-    public ResponseEntity<Void> postMethodName(
+    public ResponseEntity<Void> createUser(
         @RequestBody(description = "Dados do usuário a ser criado")
         @org.springframework.web.bind.annotation.RequestBody UserRequest createUserDTO) {
         Long id = userService.createUser(createUserDTO);
@@ -78,8 +78,8 @@ public class UserController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(
-            @Parameter(description = "ID do usuário", example = "1")
-            @PathVariable Long id) {
+        @Parameter(description = "ID do usuário", example = "1")
+        @PathVariable("id") Long id) {
     return userService.getUserById(id)
         .map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.notFound().build());
@@ -94,7 +94,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<UserResponse> updateUser(
         @Parameter(description = "ID do usuário", example = "1")
-        @PathVariable Long id,
+        @PathVariable("id") Long id,
         @RequestBody(description = "Dados atualizados do usuário")
         @org.springframework.web.bind.annotation.RequestBody UserRequest createUserDTO) {
         UserResponse updatedUser = userService.updateUser(id, createUserDTO);
@@ -112,8 +112,8 @@ public class UserController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(
-            @Parameter(description = "ID do usuário", example = "1")
-            @PathVariable Long id) {
+        @Parameter(description = "ID do usuário", example = "1")
+        @PathVariable("id") Long id) {
         boolean deleted = userService.deleteUser(id);
         if (!deleted) {
             return ResponseEntity.notFound().build();
@@ -126,10 +126,10 @@ public class UserController {
         @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
         @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
-    @GetMapping("/email")
-    public ResponseEntity<UserModel> getUserByEmail(
-            @Parameter(description = "E-mail do usuário", example = "usuario@email.com")
-            @RequestParam String email) {
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UserResponse> getUserByEmail(
+        @Parameter(description = "E-mail do usuário", example = "usuario@email.com")
+        @PathVariable("email") String email) {
         return userService.getUserByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -142,8 +142,8 @@ public class UserController {
     })
     @GetMapping("/email/exists")
     public ResponseEntity<Boolean> checkEmailExists(
-            @Parameter(description = "E-mail do usuário", example = "usuario@email.com")
-            @RequestParam String email) {
+        @Parameter(description = "E-mail do usuário", example = "usuario@email.com")
+        @RequestParam("email") String email) {
         return ResponseEntity.ok(userService.emailExists(email));
     }
 
@@ -153,9 +153,9 @@ public class UserController {
         @ApiResponse(responseCode = "200", description = "Usuários encontrados")
     })
     @GetMapping("/city/{city}")
-    public ResponseEntity<List<UserModel>> getUsersByCity(
-            @Parameter(description = "Nome da cidade", example = "São Paulo")
-            @PathVariable String city) {
+    public ResponseEntity<List<UserResponse>> getUsersByCity(
+        @Parameter(description = "Nome da cidade", example = "São Paulo")
+        @PathVariable("city") String city) {
         return ResponseEntity.ok(userService.getUsersByCity(city));
     }
 
@@ -165,9 +165,9 @@ public class UserController {
         @ApiResponse(responseCode = "200", description = "Usuários encontrados")
     })
     @GetMapping("/cep/{cep}")
-    public ResponseEntity<List<UserModel>> getUsersByCep(
-            @Parameter(description = "CEP do usuário", example = "01001-000")
-            @PathVariable String cep) {
+    public ResponseEntity<List<UserResponse>> getUsersByCep(
+        @Parameter(description = "CEP do usuário", example = "01001-000")
+        @PathVariable("cep") String cep) {
         return ResponseEntity.ok(userService.getUsersByCep(cep));
     }
 }

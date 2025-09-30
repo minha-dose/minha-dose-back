@@ -54,7 +54,7 @@ public class VaccinController {
     @GetMapping("/{id}")
     public ResponseEntity<VaccinModel> getVaccinById(
             @Parameter(description = "ID da vacina", example = "1")
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         return vaccinService.getVaccinById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -92,7 +92,7 @@ public class VaccinController {
     @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Dados atualizados da vacina")
     public ResponseEntity<?> updateVaccin(
         @Parameter(description = "ID da vacina", example = "1")
-        @PathVariable Long id,
+        @PathVariable("id") Long id,
         @Valid
         @RequestBody VaccinModel vaccinDetails) {
         try {
@@ -117,7 +117,7 @@ public class VaccinController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteVaccin(
             @Parameter(description = "ID da vacina", example = "1")
-            @PathVariable Long id) {
+            @PathVariable("id") Long id) {
         try {
             vaccinService.deleteVaccin(id);
             return ResponseEntity.noContent().build();

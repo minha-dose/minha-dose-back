@@ -34,7 +34,7 @@ public class UserService {
         UserModel userModel = userMapper.toUserModel(createUserDTO);
 
     if (createUserDTO.address() != null) {
-        AddressModel address = addressRepository.save(addressMapper.toDomain(createUserDTO.address()));
+        AddressModel address = addressRepository.save(addressMapper.toModel(createUserDTO.address()));
         userModel.setAddress(address);
     }
 
@@ -71,20 +71,26 @@ public class UserService {
         return false;
     }
 
-    public Optional<UserModel> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Optional<UserResponse> getUserByEmail(String email) {
+        return userRepository.findByEmail(email).map(userMapper::toCreateUserDTO);
     }
 
     public boolean emailExists(String email) {
         return userRepository.existsByEmail(email);
     }
 
-    public List<UserModel> getUsersByCity(String city) {
-        return userRepository.findByAddress_City(city);
+    public List<UserResponse> getUsersByCity(String city) {
+        return userRepository.findByAddress_City(city)
+                .stream()
+                .map(userMapper::toCreateUserDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<UserModel> getUsersByCep(String cep) {
-        return userRepository.findByAddress_ZipCode(cep);
+    public List<UserResponse> getUsersByCep(String cep) {
+        return userRepository.findByAddress_ZipCode(cep)
+                .stream()
+                .map(userMapper::toCreateUserDTO)
+                .collect(Collectors.toList());
     }
 
 }
