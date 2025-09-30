@@ -1,10 +1,11 @@
-package com.minhadose.demo.dto;
+package com.minhadose.demo.dto.response;
 
+import com.minhadose.demo.dto.AddressDto;
 import com.minhadose.demo.model.Role;
 
-public record CreateUserDTO(
+public record UserResponse(
+        Long userId,
         String name,
-        String password,
         String email,
         Integer age,
         Role role,
