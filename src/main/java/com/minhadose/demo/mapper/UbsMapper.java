@@ -6,7 +6,7 @@ import org.mapstruct.Mapping;
 import com.minhadose.demo.dto.CreateUbsDTO;
 import com.minhadose.demo.model.UbsModel;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {AddressMapper.class, ContactMapper.class})
 public interface UbsMapper {
     @Mapping(target = "ubsId", ignore = true)
     UbsModel toUbsModel(CreateUbsDTO dto);

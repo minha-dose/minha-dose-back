@@ -1,9 +1,10 @@
 package com.minhadose.demo.controller;
 
 
+import com.minhadose.demo.dto.request.UserRequest;
 import com.minhadose.demo.model.UserModel;
-import com.minhadose.demo.dto.CreateUserDTO;
 import com.minhadose.demo.service.UserService;
+import com.minhadose.demo.dto.response.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,7 +44,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Void> postMethodName(
         @RequestBody(description = "Dados do usuário a ser criado")
-        @org.springframework.web.bind.annotation.RequestBody CreateUserDTO createUserDTO) {
+        @org.springframework.web.bind.annotation.RequestBody UserRequest createUserDTO) {
         Long id = userService.createUser(createUserDTO);
         if (id == null) {
             return ResponseEntity.badRequest().build();
@@ -62,8 +63,8 @@ public class UserController {
         @ApiResponse(responseCode = "204", description = "Nenhum usuário encontrado")
     })
     @GetMapping
-    public ResponseEntity<List<CreateUserDTO>> getAllUsers() {
-        List<CreateUserDTO> users = userService.getAllUsers();
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<UserResponse> users = userService.getAllUsers();
         if (users.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -76,12 +77,12 @@ public class UserController {
         @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<CreateUserDTO> getUserById(
+    public ResponseEntity<UserResponse> getUserById(
             @Parameter(description = "ID do usuário", example = "1")
             @PathVariable Long id) {
-        return userService.getUserById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    return userService.getUserById(id)
+        .map(ResponseEntity::ok)
+        .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
@@ -91,12 +92,12 @@ public class UserController {
         @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<CreateUserDTO> updateUser(
+    public ResponseEntity<UserResponse> updateUser(
         @Parameter(description = "ID do usuário", example = "1")
         @PathVariable Long id,
         @RequestBody(description = "Dados atualizados do usuário")
-        @org.springframework.web.bind.annotation.RequestBody CreateUserDTO createUserDTO) {
-        CreateUserDTO updatedUser = userService.updateUser(id, createUserDTO);
+        @org.springframework.web.bind.annotation.RequestBody UserRequest createUserDTO) {
+        UserResponse updatedUser = userService.updateUser(id, createUserDTO);
         if (updatedUser == null) {
             return ResponseEntity.notFound().build();
         }

@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.minhadose.demo.dto.CreateUserDTO;
+import com.minhadose.demo.dto.request.UserRequest;
+import com.minhadose.demo.dto.response.UserResponse;
 import com.minhadose.demo.mapper.AddressMapper;
 import com.minhadose.demo.mapper.UserMapper;
 import com.minhadose.demo.model.AddressModel;
@@ -29,7 +30,7 @@ public class UserService {
         this.addressMapper = addressMapper;
     }
 
-    public Long createUser(CreateUserDTO createUserDTO) {
+    public Long createUser(UserRequest createUserDTO) {
         UserModel userModel = userMapper.toUserModel(createUserDTO);
 
     if (createUserDTO.address() != null) {
@@ -42,19 +43,19 @@ public class UserService {
 
     }
 
-    public List<CreateUserDTO> getAllUsers() {
+    public List<UserResponse> getAllUsers() {
         return userRepository.findAll()
                 .stream()
                 .map(userMapper::toCreateUserDTO)
                 .collect(Collectors.toList());
     }
 
-    public Optional<CreateUserDTO> getUserById(Long id) {
+    public Optional<UserResponse> getUserById(Long id) {
         return userRepository.findById(id)
                 .map(userMapper::toCreateUserDTO);
     }
 
-    public CreateUserDTO updateUser(Long id, CreateUserDTO createUserDTO) {
+    public UserResponse updateUser(Long id, UserRequest createUserDTO) {
         return userRepository.findById(id).map(existingUser -> {
             UserModel updatedUser = userMapper.toUserModel(createUserDTO);
             updatedUser.setUserId(id); // Garante que não criamos um novo usuário, apenas atualizamos
